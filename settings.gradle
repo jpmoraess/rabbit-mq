@@ -1,2 +1,4 @@
 rootProject.name = 'rabbit-mq'
+include 'rabbitmq-producer'
+include 'rabbitmq-consumer'
 

@@ -1,0 +1,8 @@
+server:
+  port: 8081
+
+spring:
+  rabbitmq:
+    addresses: localhost:5432
+    username: rabbitmq
+    password: rabbitmq
