@@ -3,6 +3,6 @@ server:
 
 spring:
   rabbitmq:
-    addresses: localhost:5432
+    addresses: localhost:5672
     username: rabbitmq
     password: rabbitmq
