@@ -6,13 +6,12 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 //@Service
-public class HelloRabbitConsumer {
+public class FixedRateConsumer {
 
-    private static final Logger log = LoggerFactory.getLogger(HelloRabbitConsumer.class);
+    private static final Logger log = LoggerFactory.getLogger(FixedRateConsumer.class);
 
-    @RabbitListener(queues = "hello")
+    @RabbitListener(queues = "fixedrate")
     public void listen(String message) {
-        System.out.println("Consuming message: " + message);
-        log.info("Consuming message: {}", message);
+        log.info("consuming {}", message);
     }
 }
