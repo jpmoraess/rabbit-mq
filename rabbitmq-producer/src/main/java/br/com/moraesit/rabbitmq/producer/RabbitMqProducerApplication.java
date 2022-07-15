@@ -1,7 +1,7 @@
 package br.com.moraesit.rabbitmq.producer;
 
 import br.com.moraesit.rabbitmq.producer.entity.Employee;
-import br.com.moraesit.rabbitmq.producer.producer.EmployeeJsonProducer;
+import br.com.moraesit.rabbitmq.producer.producer.HumanResourceProducer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 //@EnableScheduling
 public class RabbitMqProducerApplication implements CommandLineRunner {
 
-    private final EmployeeJsonProducer employeeJsonProducer;
+    private final HumanResourceProducer humanResourceProducer;
 
-    public RabbitMqProducerApplication(EmployeeJsonProducer employeeJsonProducer) {
-        this.employeeJsonProducer = employeeJsonProducer;
+    public RabbitMqProducerApplication(HumanResourceProducer humanResourceProducer) {
+        this.humanResourceProducer = humanResourceProducer;
     }
 
     public static void main(String[] args) {
@@ -26,11 +26,11 @@ public class RabbitMqProducerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         for (int x = 1; x <= 30; x++) {
-            TimeUnit.MILLISECONDS.sleep(1500);
+            TimeUnit.MILLISECONDS.sleep(2000);
 
             var employee = new Employee(String.valueOf(x), "João Pedro " + x, LocalDate.now());
 
-            employeeJsonProducer.sendMessage(employee);
+            humanResourceProducer.sendMessage(employee);
         }
     }
 }
