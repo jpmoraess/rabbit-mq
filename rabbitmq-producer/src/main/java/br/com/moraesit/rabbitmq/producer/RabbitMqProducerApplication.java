@@ -1,36 +1,44 @@
 package br.com.moraesit.rabbitmq.producer;
 
-import br.com.moraesit.rabbitmq.producer.entity.Employee;
-import br.com.moraesit.rabbitmq.producer.producer.HumanResourceProducer;
+import br.com.moraesit.rabbitmq.producer.entity.Picture;
+import br.com.moraesit.rabbitmq.producer.producer.PictureProducer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SpringBootApplication
 //@EnableScheduling
 public class RabbitMqProducerApplication implements CommandLineRunner {
 
-    private final HumanResourceProducer humanResourceProducer;
-
-    public RabbitMqProducerApplication(HumanResourceProducer humanResourceProducer) {
-        this.humanResourceProducer = humanResourceProducer;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(RabbitMqProducerApplication.class, args);
     }
 
+    private final PictureProducer pictureProducer;
+
+    // valid sources
+    private final List<String> sources = List.of("mobile", "web");
+
+    // valid types
+    private final List<String> types = List.of("jpg", "png", "svg");
+
+    public RabbitMqProducerApplication(PictureProducer pictureProducer) {
+        this.pictureProducer = pictureProducer;
+    }
+
     @Override
     public void run(String... args) throws Exception {
-        for (int x = 1; x <= 30; x++) {
-            TimeUnit.MILLISECONDS.sleep(2000);
+        for (int i = 0; i < 10; i++) {
+            var picture = new Picture();
+            picture.setName("Picture " + i);
+            picture.setSize(ThreadLocalRandom.current().nextLong(1, 10000));
+            picture.setSource(sources.get(i % sources.size()));
+            picture.setType(types.get(i % types.size()));
 
-            var employee = new Employee(String.valueOf(x), "João Pedro " + x, LocalDate.now());
-
-            humanResourceProducer.sendMessage(employee);
+            pictureProducer.sendMessage(picture);
         }
     }
 }
