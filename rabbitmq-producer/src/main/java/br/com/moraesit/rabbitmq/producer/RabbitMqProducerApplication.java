@@ -1,7 +1,7 @@
 package br.com.moraesit.rabbitmq.producer;
 
 import br.com.moraesit.rabbitmq.producer.entity.Picture;
-import br.com.moraesit.rabbitmq.producer.producer.PictureProducer;
+import br.com.moraesit.rabbitmq.producer.producer.PictureProducer2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +17,7 @@ public class RabbitMqProducerApplication implements CommandLineRunner {
         SpringApplication.run(RabbitMqProducerApplication.class, args);
     }
 
-    private final PictureProducer pictureProducer;
+    private final PictureProducer2 pictureProducer2;
 
     // valid sources
     private final List<String> sources = List.of("mobile", "web");
@@ -25,8 +25,8 @@ public class RabbitMqProducerApplication implements CommandLineRunner {
     // valid types
     private final List<String> types = List.of("jpg", "png", "svg");
 
-    public RabbitMqProducerApplication(PictureProducer pictureProducer) {
-        this.pictureProducer = pictureProducer;
+    public RabbitMqProducerApplication(PictureProducer2 pictureProducer2) {
+        this.pictureProducer2 = pictureProducer2;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RabbitMqProducerApplication implements CommandLineRunner {
             picture.setSource(sources.get(i % sources.size()));
             picture.setType(types.get(i % types.size()));
 
-            pictureProducer.sendMessage(picture);
+            pictureProducer2.sendMessage(picture);
         }
     }
 }

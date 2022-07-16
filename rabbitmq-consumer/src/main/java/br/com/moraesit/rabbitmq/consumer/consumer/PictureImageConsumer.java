@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Service
+//@Service
 public class PictureImageConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(PictureImageConsumer.class);
